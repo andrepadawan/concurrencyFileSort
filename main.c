@@ -46,7 +46,7 @@ void *readT(void* arg){
     }
 
     for(int j = 0; j<n; j++){
-        printf("%dcd", vect[i]);
+        printf("%d\n", vect[i]);
     }
 
     free(vect);
