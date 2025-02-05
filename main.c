@@ -50,8 +50,10 @@ void *readT(void* arg){
     //Cast del puntatore
     argThread *filename = (argThread*) arg;
     printf("Ciao sono il thread con file %s\n", filename->inFile.name);
-    FILE *fp = fopen(filename, "r");
-    if (fp==NULL)
+    FILE *fp = fopen(filename->inFile.name, "r");
+    FILE *fw = fopen(filename->outFile.name, "w");
+
+    if (fp==NULL||fw==NULL)
     {
         perror("Errore nell'apertura del file\n");
         exit(-1);
@@ -78,7 +80,13 @@ void *readT(void* arg){
     for(int j = 0; j<n; j++){
         printf("ORDINATI: file %s: %d\n", filename->outFile.name, vect[j]);
     }
-    
+
+    //Ora stampo anche nel file:
+    fprintf(fw, "%d\n", n);
+    for(int j = 0; j<n; j++){
+        fprintf(fw,"%d\n", vect[j]);
+    }
+
     fclose(fp);
     free(vect);
     return NULL;
